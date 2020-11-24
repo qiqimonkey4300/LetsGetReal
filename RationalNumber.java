@@ -7,8 +7,23 @@ public class RationalNumber extends RealNumber {
   *@param nume the numerator
   *@param deno the denominator
   */
+
   public RationalNumber(int nume, int deno){
     super(0.0);//this value is ignored!
+    if (deno == 0) {
+      nume = 0;
+      deno = 1;
+    }
+    if (deno < 0) {
+      deno *= -1;
+      nume *= -1;
+    }
+    if (nume == 0) {
+      deno = 1;
+    }
+    numerator = nume;
+    denominator = deno;
+    reduce();
   }
 
   public double getValue(){
@@ -19,34 +34,36 @@ public class RationalNumber extends RealNumber {
   *@return the numerator
   */
   public int getNumerator(){
-    return 0;
+    return numerator;
   }
   /**
   *@return the denominator
   */
   public int getDenominator(){
-    return 0;
+    return denominator;
   }
   /**
   *@return a new RationalNumber that has the same numerator
   *and denominator as this RationalNumber but reversed.
   */
   public RationalNumber reciprocal(){
-    return null;
+    RationalNumber x = new RationalNumber(denominator, numerator);
+    return x;
   }
+
   /**
   *@return true when the RationalNumbers have the same numerators and denominators, false otherwise.
   */
   public boolean equals(RationalNumber other){
-    return false;
+    return (numerator == other.getNumerator()
+    && denominator == other.getDenominator());
   }
-
 
   /**
   *@return the value expressed as "3/4" or "8/3"
   */
   public String toString(){
-    return "0";
+    return getNumerator() + "/" + getDenominator();
   }
 
   /**Calculate the GCD of two integers.
@@ -54,10 +71,22 @@ public class RationalNumber extends RealNumber {
   *@param b the second integer
   *@return the value of the GCD
   */
+
   private static int gcd(int a, int b){
     /*use euclids method or a better one*/
-    http://sites.math.rutgers.edu/~greenfie/gs2004/euclid.html
-    return 0;
+    //http://sites.math.rutgers.edu/~greenfie/gs2004/euclid.html
+    if (a < b) {
+      int t = a; a = b; b = t;
+    }
+    if (a == b) {
+      return a;
+    }
+    int r = b;
+    while (r != 0) {
+      r = a % b;
+      a = b; b = r;
+    }
+    return a;
   }
 
   /**
@@ -66,7 +95,9 @@ public class RationalNumber extends RealNumber {
   *reduced after construction.
   */
   private void reduce(){
-
+    int x = gcd(numerator, denominator);
+    numerator /= Math.abs(x);
+    denominator /= Math.abs(x);
   }
   /******************Operations Return a new RationalNumber!!!!****************/
   /**
