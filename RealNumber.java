@@ -1,7 +1,8 @@
-public class RealNumber {
+public class RealNumber extends Number {
+
   private double value;
 
-  public RealNumber(double v){
+  public RealNumber(double v) {
     value = v;
   }
 
@@ -18,18 +19,6 @@ public class RealNumber {
   *Return true when the values are within 0.001% of eachother.
   *Special case: if one is exactly zero, the other must be exactly zero.
   */
-  public boolean equals(RealNumber other){
-    double avg = value + other.getValue()/2;
-    if (value == 0.0 || other.getValue() == 0.0) {
-      if (value == other.getValue()) {
-        return true;
-      }
-      return false;
-    } else if ((Math.abs(value - other.getValue())/(avg) * 100) <= 0.001) {
-      return true;
-    }
-    return false;
-  }
 
   /*
   *Return a new RealNumber that has the value of:
